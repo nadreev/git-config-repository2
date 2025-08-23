@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8762/eureka}
+  instance:
+    prefer-ip-address: true
+
+
+spring:
+
+  application:
+    name: chatbot
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        current_session_context_class: thread
+        enable_lazy_load_no_trans: true
+    show_sql: true
+
+  cloud:
+    function:
+      definition: consumer;producer
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:29092
+      bindings:
+        consumer-in-0:
+          destination: chat-consumer-topic
+        producer-out-0:
+          destination: chat-producer-topic
