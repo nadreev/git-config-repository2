@@ -13,6 +13,7 @@ spring:
   application:
     name: chatbot
 
-  profiles:
+profiles:
 
-    active: dev
+  active: dev
+
